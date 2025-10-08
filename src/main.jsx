@@ -1,20 +1,9 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import { createRoutesFromElements, RouterProvider, Route, createBrowserRouter } from 'react-router-dom';
-import { Layout } from './pages/_Layout';
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import EncurtadorLinks from './pages/encurtadorLinks.jsx'
 
-
-const rotas = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path="/" element={<Layout />}>
-
-    </Route>
-  )
-);
-
-createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <RouterProvider router={rotas} />
-  </StrictMode>
-);
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <EncurtadorLinks/>
+  </React.StrictMode>,
+)
