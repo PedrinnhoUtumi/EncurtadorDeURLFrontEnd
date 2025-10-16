@@ -10,7 +10,7 @@ function validar(novoLink) {
 }
 
 export function EncurtadorLinks() {
-  const [novoLink, setNovoLink] = useState({legendaLink: "", urlNormal: ""})
+  const [novoLink, setNovoLink] = useState({ legendaLink: "", urlNormal: "" })
   const [linksGerados, setLinksGerados] = useState([]);
 
   async function criarLink(e) {
@@ -33,7 +33,7 @@ export function EncurtadorLinks() {
 
       setLinksGerados(prev => [...prev, dados]);
       setNovoLink({ urlNormal: "", legendaLink: "" })
-      
+
     } catch (error) {
       console.error(error)
     }
@@ -81,37 +81,27 @@ export function EncurtadorLinks() {
 
       <div className="w-full max-w-5xl mt-10">
         <h2 className="text-white font-semibold">Meus Links</h2>
-
-        <div className="bg-white p-4 rounded-2xl shadow flex flex-col gap-4">
-          {linksGerados.length === 0 && <p>Nenhum link gerado ainda.</p>}
-
+        <div className="bg-white p-4 rouded-2x1 shdow flex flex-col gap-4">
           {linksGerados.map((link) => (
-            <div key={link.id || link.codigo} className="bg-white p-4 rounded-2xl shadow flex flex-col gap-2">
-              <p className="font-medium">{link.legendaLink}</p>
-              <a
-                href={`http://localhost:3000/${link.codigo}`}
+            <div key={link.id || link.codigo} className="bg-white p-4 rounded-2x1 shadow flex flex-col gap-2">
+              <a href={`http://localhost:3000/${link.codigo}`}
                 target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 hover:underline"
-              >
+                rel="noopener nor4eferrer">
                 https://short.ly/{link.codigo}
               </a>
-              <p className="text-sm text-gray-500 truncate">{link.urlNormal}</p>
-
+              <p>{link.urlNormal}</p>
               <div className="flex justify-between items-center mt-2">
-                <p className="text-sm text-gray-400">
-                  Criado em {new Date(link.createdAt).toLocaleDateString()}, {new Date(link.createdAt).toLocaleTimeString()}
+                <p>
+                  <div className="flex items-center gap-2">
+                    <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Salvar</button>
+                    <button className="bg-gray-600 px-4 py-2 rounded-lg">Cancelar</button>
+                    <button>Editar</button>
+                    <button>Excluir</button>
+                    <button className="p-2 bg-gray-100 rounded-lg text-sm px-3">
+                      Copiar
+                    </button>
+                  </div>
                 </p>
-                <div className="flex items-center gap-2">
-                  <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Salvar</button>
-                  <button className="bg-gray-600 px-4 py-2 rounded-lg">Cancelar</button>
-                  <button>Editar</button>
-                  <button>Excluir</button>
-
-                  <button className="p-2 bg-gray-100 rounded-lg text-sm px-3">
-                    Copiar
-                  </button>
-                </div>
               </div>
             </div>
           ))}
