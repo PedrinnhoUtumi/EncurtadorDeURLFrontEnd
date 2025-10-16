@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createContext } from "react";
+export const DadosContext = createContext();
 
 function validar(novoLink) {
   if (!novoLink.legendaLink || !novoLink.urlNormal) {
@@ -9,6 +11,7 @@ function validar(novoLink) {
 
 export function EncurtadorLinks() {
   const [novoLink, setNovoLink] = useState({legendaLink: "", urlNormal: ""})
+  const [linksGerados, setLinksGerados] = useState([]);
 
   async function criarLink(e) {
     e.preventDefault();
@@ -27,17 +30,14 @@ export function EncurtadorLinks() {
         throw new Error(`Erro ao criar usuário: ${response.statusText}`)
       }
       const dados = await response.json()
+
+      setLinksGerados(prev => [...prev, dados]);
       setNovoLink({ urlNormal: "", legendaLink: "" })
+      
     } catch (error) {
       console.error(error)
     }
   }
-
-  cons
-  useEffect(() => {
-    const l = dados.link?.find(l => l.codigoGerado === codigoGerado);
-    setLink(l);
-  }, [dados.link, codigoGerado]);
 
 
   return (
@@ -82,34 +82,39 @@ export function EncurtadorLinks() {
       <div className="w-full max-w-5xl mt-10">
         <h2 className="text-white font-semibold">Meus Links</h2>
 
-        <div className="bg-white p-4 rounded-2xl shadow flex flex-col gap-2">
-          <p className="font-medium">Exame Seleção Técnico 2026</p>
-          <a
-            href={`https://short.ly/${codigoGerado}`}
-            target="_blank"
-            className="text-blue-600 hover:underline"
-          >
-            https://short.ly/ersb6d
-          </a>
-          <p className="text-sm text-gray-500 truncate">
-            https://www.utfpr.edu.br/editais/graduacao-e-educacao-profiss...
-          </p>
+        <div className="bg-white p-4 rounded-2xl shadow flex flex-col gap-4">
+          {linksGerados.length === 0 && <p>Nenhum link gerado ainda.</p>}
 
-          <div className="flex justify-between items-center mt-2">
-            <p className="text-sm text-gray-400">
-              Criado em 01/10/2025, 09:06
-            </p>
-            <div className="flex items-center gap-2">
-              <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700" >Salvar</button>
-              <button className="bg-gray-600 px-4 py-2 rounded-lg" >Cancelar</button>
-              <button>Editar</button>
-              <button>Excluir</button>
+          {linksGerados.map((link) => (
+            <div key={link.id || link.codigo} className="bg-white p-4 rounded-2xl shadow flex flex-col gap-2">
+              <p className="font-medium">{link.legendaLink}</p>
+              <a
+                href={`http://localhost:3000/${link.codigo}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                https://short.ly/{link.codigo}
+              </a>
+              <p className="text-sm text-gray-500 truncate">{link.urlNormal}</p>
 
-              <button className="p-2 bg-gray-100 rounded-lg text-sm px-3">
-                Copiar
-              </button>
+              <div className="flex justify-between items-center mt-2">
+                <p className="text-sm text-gray-400">
+                  Criado em {new Date(link.createdAt).toLocaleDateString()}, {new Date(link.createdAt).toLocaleTimeString()}
+                </p>
+                <div className="flex items-center gap-2">
+                  <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Salvar</button>
+                  <button className="bg-gray-600 px-4 py-2 rounded-lg">Cancelar</button>
+                  <button>Editar</button>
+                  <button>Excluir</button>
+
+                  <button className="p-2 bg-gray-100 rounded-lg text-sm px-3">
+                    Copiar
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>
