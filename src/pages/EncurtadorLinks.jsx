@@ -56,6 +56,23 @@ export function EncurtadorLinks() {
     }
   }
 
+  async function excluirLink(id) {
+    if (!window.confirm("Tem certeza que deseja excluir este link?")) return;
+
+    try {
+      const response = await fetch(`http://localhost:3000/links/${id}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) throw new Error(`Erro ao excluir link: ${response.statusText}`);
+
+      window.location.reload();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+
   return (
     <div className="min-h-screen flex flex-col items-center p-8 bg-red-500">
       <h1 className="text-3xl text-white font-bold mb-2 text-center">🔗 Encurtador de Links</h1>
@@ -114,7 +131,10 @@ export function EncurtadorLinks() {
                   >
                     Editar
                   </button>
-                  <button className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700">
+                  <button
+                    onClick={() => excluirLink(link.id)}
+                    className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700"
+                  >
                     Excluir
                   </button>
                   <button
