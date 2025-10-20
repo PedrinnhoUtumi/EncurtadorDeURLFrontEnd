@@ -20,7 +20,7 @@ export function EncurtadorLinks() {
     try {
       validar(novoLink);
 
-      const response = await fetch(`https://encurtadordeurlbackend.onrender.com/links`, {
+      const response = await fetch(`https://projetoencurtadordeurlbackend.onrender.com/links`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(novoLink),
@@ -41,7 +41,7 @@ export function EncurtadorLinks() {
     try {
       validar(novoLink);
 
-      const response = await fetch(`https://encurtadordeurlbackend.onrender.com/links/${novoLink.id}`, {
+      const response = await fetch(`https://projetoencurtadordeurlbackend.onrender.com/links/${novoLink.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(novoLink),
@@ -62,7 +62,7 @@ export function EncurtadorLinks() {
     if (!window.confirm("Tem certeza que deseja excluir este link?")) return;
 
     try {
-      const response = await fetch(`https://encurtadordeurlbackend.onrender.com/links/${id}`, {
+      const response = await fetch(`https://projetoencurtadordeurlbackend.onrender.com/links/${id}`, {
         method: "DELETE",
       });
 
@@ -76,7 +76,7 @@ export function EncurtadorLinks() {
   async function incrementarLink(e, link) {
     e.preventDefault();
     try {
-      const response = await fetch(`https://encurtadordeurlbackend.onrender.com/increment/${link.codigoGerado}`, {
+      const response = await fetch(`https://projetoencurtadordeurlbackend.onrender.com/increment/${link.codigoGerado}`, {
         method: "GET",
       });
 
