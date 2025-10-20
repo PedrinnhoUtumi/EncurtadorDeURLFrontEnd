@@ -1,12 +1,13 @@
 import { Outlet } from "react-router-dom";
+import React from "react" 
 
 export function Layout() {
   return (
     <div
       className={`
         flex 
-        w-screen min-h-screen       
-    `}
+        min-[]:w-screen min-h-screen       
+    `} 
     >
       <main className="flex flex-col flex-1">
         <Outlet />
