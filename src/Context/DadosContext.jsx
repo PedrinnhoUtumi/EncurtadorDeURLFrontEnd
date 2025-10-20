@@ -29,7 +29,7 @@ export function DadosProvider({ children }) {
   useEffect(() => {
     const fetchAPI = async () => {
       try {
-        const response = await fetch("http://localhost:3000/links");
+        const response = await fetch("https://encurtadordeurlbackend.onrender.com/links");
         if (!response.ok) {
           throw new Error("Erro ao buscar os dados do servidor");
         }
