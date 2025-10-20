@@ -76,14 +76,13 @@ export function EncurtadorLinks() {
   async function incrementarLink(e, link) {
     e.preventDefault();
     try {
-      const response = await fetch(`https://projetoencurtadordeurlbackend.onrender.com/increment/${link.codigoGerado}`, {
+      const response = await fetch(`https://projetoencurtadordeurlbackend.onrender.com/incrementa/${link.codigoGerado}`, {
         method: "GET",
       });
 
       if (!response.ok) throw new Error(`Erro ao editar link: ${response.statusText}`);
       window.open(link.urlNormal, "_blank");
 
-      await response.json();
       window.location.reload();
     } catch (error) {
       console.error(error);
